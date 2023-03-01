@@ -30,7 +30,8 @@ keyhandler:
   and bl, 0x80 ; key release
   jnz idone ; dont repeat
 
-  mov si, [port60]
+  mov word [hex2str_input_hex], ax
+  call hex2str
   call print
 
   jmp idone
