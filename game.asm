@@ -1,9 +1,14 @@
 hello_world:
   mov si, debug_msg
   call print
-  call end_program
+  call enable_keyhandler
+  call inf_loop
+
+  ;call end_program
 
 ; --- Auxiliary functions
+inf_loop:
+  jmp inf_loop
 done:
   ret
 idone: 
@@ -12,5 +17,8 @@ end_program:
   cli 
   hlt
 
+; --- Subroutines
 %include "printer.asm"
+%include "keyhandler.asm"
+; --- Data
 %include "constants.asm"
