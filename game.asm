@@ -1,15 +1,16 @@
 hello_world:
   mov si, debug_msg
-  mov ah, 0x0e
-  call print_loop
+  call print
+  call end_program
 
-print_loop:
-  lodsb
-  or al, al
-  jz done
-  int 0x10
-  jmp print_loop
+; --- Auxiliary functions
 done:
-  jmp done
+  ret
+idone: 
+  iret
+end_program:
+  cli 
+  hlt
 
-debug_msg: db "Hello world!", 0
+%include "printer.asm"
+%include "constants.asm"
