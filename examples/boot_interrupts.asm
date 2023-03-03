@@ -48,7 +48,13 @@ keyhandler: ; This will just print the scan code without converting it to ASCII
   jnz idone ; dont repeat
 
   mov ax, [port60]
+
   mov word [reg16], ax
+  cmp ax, 0x0050
+  je stuck
+  ;mov si, ax
+
+  ;call print_loop
   call printreg16
 
   jmp idone
@@ -75,7 +81,11 @@ hexloop:
    dec cx
    jnz hexloop
 
-   mov si, outstr16
+   mov si, 0x0050
+   ;mov bx, down_code
+   ;cmp si, si
+   ;je stuck
+
    mov ah, 0x0e ; sets up the correct function code into the ah register
    call print_loop
    jmp done
@@ -91,4 +101,6 @@ outstr16   db "0000", 0  ;register value string
 reg16   dw    0  ; pass values to printreg16
 times 510 - ($-$$) db 0 ; pad remaining 510 bytes with zeroes
 dw 0xaa55 ; magic number
+
+down_code dw "0050", 0
 
