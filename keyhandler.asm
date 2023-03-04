@@ -33,6 +33,7 @@ keyhandler:
   ; --- Return 
   mov ax, [port60]
 
+  ; -- Checking for presses of the L key regardless of pause status
   cmp ax, 0x0026
   je L_key_pressed
 
@@ -40,6 +41,7 @@ keyhandler:
   cmp byte [pause_status], 1
   je switch_keys_done
 
+  ; -- Checking the rest of the keys
   cmp ax, 0x0050
   je down_key_pressed
 
@@ -51,7 +53,6 @@ keyhandler:
 
   cmp ax, 0x004D
   je right_key_pressed
-
 
   cmp ax, 0x0013
   je R_key_pressed
@@ -82,18 +83,12 @@ up_key_pressed:
 L_key_pressed:
   mov si, pause_msg
   call print
-  ; --- Switching pause_status
-  xor byte [pause_status], 1
-  ; ---
+  call toggle_pause_status
+
   cmp byte [pause_status], 1
   je start_pausing
   jne start_unpausing
-start_pausing:
-  call pause
-  jmp switch_keys_done
-start_unpausing:
-  call unpause
-  jmp switch_keys_done
+
 
 R_key_pressed:
   mov si, restart_msg
