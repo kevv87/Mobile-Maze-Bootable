@@ -89,10 +89,10 @@ L_key_pressed:
   je start_pausing
   jne start_unpausing
 
-
 R_key_pressed:
   mov si, restart_msg
   call print
+  call reboot
   jmp switch_keys_done
 
 debug_key:

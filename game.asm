@@ -21,5 +21,6 @@ end_program:
 %include "printer.asm"
 %include "keyhandler.asm"
 %include "pause.asm"
+%include "restart.asm"
 ; --- Data
 %include "constants.asm"
