@@ -30,10 +30,76 @@ keyhandler:
   and bl, 0x80 ; key release
   jnz idone ; dont repeat
 
+  ; --- Return 
+  mov ax, [port60]
+
+  ; -- Checking for presses of the L key regardless of pause status
+  cmp ax, 0x0026
+  je L_key_pressed
+
+  ; -- When paused it should only respond to L presses
+  cmp byte [pause_status], 1
+  je switch_keys_done
+
+  ; -- Checking the rest of the keys
+  cmp ax, 0x0050
+  je down_key_pressed
+
+  cmp ax, 0x004B
+  je left_key_pressed
+
+  cmp ax, 0x0048
+  je up_key_pressed
+
+  cmp ax, 0x004D
+  je right_key_pressed
+
+  cmp ax, 0x0013
+  je R_key_pressed
+  
+switch_keys_done:
+  jmp idone
+
+left_key_pressed:
+  mov si, left_msg
+  call print
+  jmp switch_keys_done
+
+right_key_pressed:
+  mov si, right_msg
+  call print
+  jmp switch_keys_done
+
+down_key_pressed:
+  mov si, down_msg
+  call print
+  jmp switch_keys_done
+
+up_key_pressed:
+  mov si, up_msg
+  call print
+  jmp switch_keys_done
+
+L_key_pressed:
+  mov si, pause_msg
+  call print
+  call toggle_pause_status
+
+  cmp byte [pause_status], 1
+  je start_pausing
+  jne start_unpausing
+
+
+R_key_pressed:
+  mov si, restart_msg
+  call print
+  jmp switch_keys_done
+
+debug_key:
   mov word [hex2str_input_hex], ax
   call hex2str
   call print
-
-  jmp idone
+  jmp done
 
 port60 dw 0 ; can we change this name?
+pause_status db 0

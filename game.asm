@@ -20,5 +20,6 @@ end_program:
 ; --- Subroutines
 %include "printer.asm"
 %include "keyhandler.asm"
+%include "pause.asm"
 ; --- Data
 %include "constants.asm"
