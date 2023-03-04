@@ -33,6 +33,13 @@ keyhandler:
   ; --- Return 
   mov ax, [port60]
 
+  cmp ax, 0x0026
+  je L_key_pressed
+
+  ; -- When paused it should only respond to L presses
+  cmp byte [pause_status], 1
+  je switch_keys_done
+
   cmp ax, 0x0050
   je down_key_pressed
 
@@ -45,8 +52,6 @@ keyhandler:
   cmp ax, 0x004D
   je right_key_pressed
 
-  cmp ax, 0x0026
-  je L_key_pressed
 
   cmp ax, 0x0013
   je R_key_pressed
@@ -77,6 +82,17 @@ up_key_pressed:
 L_key_pressed:
   mov si, pause_msg
   call print
+  ; --- Switching pause_status
+  xor byte [pause_status], 1
+  ; ---
+  cmp byte [pause_status], 1
+  je start_pausing
+  jne start_unpausing
+start_pausing:
+  call pause
+  jmp switch_keys_done
+start_unpausing:
+  call unpause
   jmp switch_keys_done
 
 R_key_pressed:
@@ -91,7 +107,4 @@ debug_key:
   jmp done
 
 port60 dw 0 ; can we change this name?
-left_keycode: dw 0x004B
-up_keycode: dw 0x0048
-right_keycode: dw 0x004D
-down_keycode: dw 0x0050
+pause_status db 0
