@@ -6,14 +6,15 @@ up_msg: db "Pressed up!", 13, 10, 0
 down_msg: db "Pressed down!", 13, 10, 0
 pause_msg: db "Pressed pause!", 13, 10, 0
 restart_msg: db "Pressed restart!", 13, 10, 0
-game_paused_msg: db "Game is paused! Press L to continue", 13, 10, 0
-game_unpaused_msg: db "Game was unpaused!", 13, 10, 0
+game_paused_msg: db "Press L", 13, 10, 0
+
+;game_unpaused_msg: db "Game was unpaused!", 13, 10, 0
 
 hexstr: db "0123456789ABCDEF"
 
 ; -- Globals
 ; Obstaculos superados
-obst_overcm             db      0x0
+obst_overcm             db      0x34
 ; Nivel actual de 1 - 2
 current_level           db      0x0
 ; Nombre del jugador

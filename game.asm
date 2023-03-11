@@ -1,13 +1,20 @@
+org 0x8000
+
 game:
-  ;mov si, debug_msg
-  ;call print
+  call print_hello_world
   call enable_keyhandler
-  ;call variable_initialization
+  call variable_initialization
   call activate_vga_mode
+  ;call print_hello_world
   call print_info
   call inf_loop
 
   ;call end_program
+
+print_hello_world:
+  mov si, debug_msg
+  call print
+  jmp done
 
 variable_initialization:
     mov word [CURRENT_COLOR], BASE_COLOR
