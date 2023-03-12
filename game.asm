@@ -1,21 +1,30 @@
 org 0x8000
 
 game:
-  call print_hello_world
   call variable_initialization
-  call activate_vga_mode
   call enable_keyhandler
+  call print_welcome_msg
+
+  call activate_vga_mode
   call refresh_screen
 
   call game_loop
-  ;call inf_loop
   ;call end_program
+
+print_welcome_msg:
+  mov si, game_start_msg
+  call print
+
+start_loop:
+  cmp byte [current_level], 0x00
+  je start_loop
+  jmp done
 
 game_loop:
   jmp game_loop
 
 variable_initialization:
-    mov byte [current_level], 0x01
+    mov byte [current_level], 0x00
     mov byte [obst_overcm], 0x0
     ; Posicion del jugador en el centro de la pantalla
     mov word [player_x], 0x0078
@@ -30,8 +39,6 @@ activate_vga_mode:
   jmp done
 
 ; --- Auxiliary functions
-inf_loop:
-  jmp inf_loop
 done:
   ret
 idone: 

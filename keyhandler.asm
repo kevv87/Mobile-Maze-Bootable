@@ -33,6 +33,14 @@ keyhandler:
   ; --- Return 
   mov ax, [port60]
 
+  ; -- When on the start screen it should only respond to space presses
+  cmp byte [current_level], 0x00
+  jg on_game_key_handler
+  cmp ax, 0x001c ; Enter key
+  mov byte [current_level], 0x01
+  jmp switch_keys_done
+  
+  on_game_key_handler:
   ; -- Checking for presses of the L key regardless of pause status
   cmp ax, 0x0026
   je L_key_pressed
