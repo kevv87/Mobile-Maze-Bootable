@@ -32,12 +32,13 @@ hexloop:
 ; parameters:
 print_pixel_start_x dw 0
 print_pixel_start_y dw 0
+print_pixel_color db 0
 print_pixel:
   mov byte [pixel_counter_x], 0
   mov byte [pixel_counter_y], 0
   mov ah, 0x0c ; draw pixel mode
   mov bh, 0x00 ; video page normally zero
-  mov al, 0x02 ; color = green
+  mov al, byte [print_pixel_color] ; color = green
 loop_print_pixel:
   mov dx, word [print_pixel_start_y] ; y coordinates
   add dl, byte [pixel_counter_y]
@@ -47,14 +48,13 @@ loop_print_pixel:
 
   ; Incrementing x
   inc byte [pixel_counter_x]
-  ; TODO: pixel width
-  cmp byte [pixel_counter_x], 5
+  cmp byte [pixel_counter_x], pixel_width
   jl loop_print_pixel
 
   ; Incrementing y
   mov byte [pixel_counter_x], 0
   inc byte [pixel_counter_y]
-  cmp byte [pixel_counter_y], 5
+  cmp byte [pixel_counter_y], pixel_width
   jl loop_print_pixel
 
   jmp done
@@ -66,6 +66,7 @@ print_player:
   mov word [print_pixel_start_x], bx
   mov bx, word [player_y]
   mov word [print_pixel_start_y], bx
+  mov byte [print_pixel_color], 0x02 ; player color green
   call print_pixel
   jmp done
 
@@ -82,7 +83,48 @@ print_hello_world:
   call print
   jmp done
 
-clear_screen:
+; parameters:
+print_line_start_x dw 0
+print_line_end_x dw 0
+print_horiz_line_y dw 0
+print_horiz_line:
+  mov word [print_line_counter], 0
+print_horiz_line_loop:
+  ; print_line_start_x += print_line_counter * 5
+  mov bx, word [print_line_start_x]
+  mov ax, word [print_line_counter]
+  mov cl, pixel_width
+  mul cl
+  add bx, ax
+  ; --
+  mov word [print_pixel_start_x], bx
+  mov bx, word [print_horiz_line_y]
+  mov word [print_pixel_start_y], bx
+  call print_pixel
+
+  inc word [print_line_counter]
+  mov bx, word [print_line_end_x]
+  cmp word [print_line_counter], bx
+  jle print_horiz_line_loop
+
+  jmp done
+
+print_line_counter dw 0
+
+print_borders:
+  mov word [print_line_start_x], screen_x_start
+  mov word [print_line_end_x], screen_x_end_pixel
+  mov word [print_horiz_line_y], screen_y_start
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start
+  mov word [print_line_end_x], screen_x_end_pixel
+  mov word [print_horiz_line_y], screen_y_end_pixel
+  call print_horiz_line
+
+  jmp done
+
+refresh_screen:
   mov ah, 0x06 ; funci—n de borrar
   mov al, 0x00 ; borrar toda la pantalla
   mov bh, 0x00 ; atributo de color blanco sobre negro
@@ -93,6 +135,7 @@ clear_screen:
   int 0x10     ; llamar a la interrupci—n
   call print_info
   call print_player
+  call print_borders
   jmp done
 
 move_video_cursor_to_0:

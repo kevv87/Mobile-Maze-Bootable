@@ -12,7 +12,11 @@ game_unpaused_msg: db "Game was unpaused!", 13, 10, 0
 
 hexstr: db "0123456789ABCDEF"
 
-pixel_width: db 10
+pixel_width equ 5
+screen_x_start equ 0
+screen_y_start equ 30
+screen_x_end_pixel equ 63
+screen_y_end_pixel equ 190
 
 ; We should delete some things from here
 ; -- Globals

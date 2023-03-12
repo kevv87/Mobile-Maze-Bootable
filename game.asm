@@ -5,8 +5,7 @@ game:
   call variable_initialization
   call activate_vga_mode
   call enable_keyhandler
-  call print_info
-  call print_player
+  call refresh_screen
 
   call game_loop
   ;call inf_loop

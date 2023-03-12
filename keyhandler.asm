@@ -62,22 +62,22 @@ switch_keys_done:
 
 left_key_pressed:
   sub word [player_x], 5
-  call clear_screen
+  call refresh_screen
   jmp switch_keys_done
 
 right_key_pressed:
   add word [player_x], 5
-  call clear_screen
+  call refresh_screen
   jmp switch_keys_done
 
 down_key_pressed:
   add word [player_y], 5
-  call clear_screen
+  call refresh_screen
   jmp switch_keys_done
 
 up_key_pressed:
   sub word [player_y], 5
-  call clear_screen
+  call refresh_screen
   jmp switch_keys_done
 
 L_key_pressed:
