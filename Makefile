@@ -16,4 +16,4 @@ simulate: boot.bin
 	${SIMULATOR} boot.bin
 
 clean:
-	${RM} boot.bin
+	${RM} *.bin
