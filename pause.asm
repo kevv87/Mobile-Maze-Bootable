@@ -16,6 +16,7 @@ pause:
   jmp done
 
 unpause:
-  ;mov si, game_unpaused_msg
+  mov si, game_unpaused_msg
   call print
+  call refresh_screen
   jmp done
