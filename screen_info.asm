@@ -1,4 +1,5 @@
 print_info:
+  call move_video_cursor_to_0
   call obstacles_overcome_count
   call print_newline
 

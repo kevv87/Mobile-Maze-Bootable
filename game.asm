@@ -6,13 +6,13 @@ game:
   call activate_vga_mode
   call enable_keyhandler
   call print_info
+  call print_player
 
   call game_loop
   ;call inf_loop
   ;call end_program
 
 game_loop:
-  call print_player
   jmp game_loop
 
 variable_initialization:

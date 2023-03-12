@@ -1,7 +1,7 @@
 print:
   mov ah, 0x0e
 print_loop:
-  ;mov bl, 0x04 ; this prints on red
+  mov bl, 0x04 ; this prints on red
   lodsb ; This loads the first character of si into al
   cmp al, 0 ; when al == 0, string has finished
   je done ; if so, finish this function
@@ -39,10 +39,10 @@ print_pixel:
   mov bh, 0x00 ; video page normally zero
   mov al, 0x02 ; color = green
 loop_print_pixel:
-  mov dx, word [print_pixel_start_x] ; x coordinates
-  add dl, byte [pixel_counter_x]
-  mov cx, word [print_pixel_start_y] ; y coordinates
-  add cl, byte [pixel_counter_y]
+  mov dx, word [print_pixel_start_y] ; y coordinates
+  add dl, byte [pixel_counter_y]
+  mov cx, word [print_pixel_start_x] ; x coordinates
+  add cl, byte [pixel_counter_x]
   int 0x10 ; video interrupt
 
   ; Incrementing x
@@ -80,6 +80,27 @@ print_newline:
 print_hello_world:
   mov si, debug_msg
   call print
+  jmp done
+
+clear_screen:
+  mov ah, 0x06 ; funci—n de borrar
+  mov al, 0x00 ; borrar toda la pantalla
+  mov bh, 0x00 ; atributo de color blanco sobre negro
+  mov ch, 0x00 ; fila inicial
+  mov cl, 0x00 ; columna inicial
+  mov dh, 0x18 ; fila final
+  mov dl, 0x4F ; columna final
+  int 0x10     ; llamar a la interrupci—n
+  call print_info
+  call print_player
+  jmp done
+
+move_video_cursor_to_0:
+  mov ah, 0x02 ; function 2h, set cursor position
+  mov bh, 0x00 ; page number
+  mov dh, 0x00 ; row
+  mov dl, 0x00 ; column
+  int 0x10     ; call BIOS video service
   jmp done
 
 hex_outstr_buf db "0000", 0 ; buffer for the string output of the hex2str function
