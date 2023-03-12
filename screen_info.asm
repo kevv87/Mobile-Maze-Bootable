@@ -9,6 +9,28 @@ print_info:
   call print_game_name
   call print_newline
 
+  call print_game_controls
+
+  jmp done
+
+print_game_controls:
+  mov byte [col_video_cursor_to], 14
+  call move_video_cursor_col
+  mov si, move_controls_msg
+  call print
+
+  mov byte [row_video_cursor_to], 1
+  call move_video_cursor_row
+
+  mov si, pause_controls_msg
+  call print
+
+  mov byte [row_video_cursor_to], 2
+  call move_video_cursor_row
+
+  mov si, reset_controls_msg
+  call print
+
   jmp done
 
 obstacles_overcome_count:

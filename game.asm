@@ -3,7 +3,8 @@ org 0x8000
 game:
   call variable_initialization
   call enable_keyhandler
-  call print_welcome_msg
+  mov byte [current_level], 0x01
+  ;call print_welcome_msg
 
   call activate_vga_mode
   call refresh_screen

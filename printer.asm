@@ -207,5 +207,23 @@ move_video_cursor_to_0:
   int 0x10     ; call BIOS video service
   jmp done
 
+; parameters:
+col_video_cursor_to db 0
+move_video_cursor_col:
+  mov ah, 0x02 ; function 2h, set cursor position
+  mov bh, 0x00 ; page number
+  mov dl, byte [col_video_cursor_to] ; column
+  int 0x10     ; call BIOS video service
+  jmp done
+
+; parameters:
+row_video_cursor_to db 0
+move_video_cursor_row:
+  mov ah, 0x02 ; function 2h, set cursor position
+  mov bh, 0x00 ; page number
+  mov dh, byte [row_video_cursor_to] ; rowumn
+  int 0x10     ; call BIOS video service
+  jmp done
+
 hex_outstr_buf db "0000", 0 ; buffer for the string output of the hex2str function
 hex2str_input_hex dw 0
