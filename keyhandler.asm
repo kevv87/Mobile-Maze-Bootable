@@ -61,23 +61,23 @@ switch_keys_done:
   jmp idone
 
 left_key_pressed:
-  mov si, left_msg
-  call print
+  sub word [player_x], 5
+  call refresh_screen
   jmp switch_keys_done
 
 right_key_pressed:
-  mov si, right_msg
-  call print
+  add word [player_x], 5
+  call refresh_screen
   jmp switch_keys_done
 
 down_key_pressed:
-  mov si, down_msg
-  call print
+  add word [player_y], 5
+  call refresh_screen
   jmp switch_keys_done
 
 up_key_pressed:
-  mov si, up_msg
-  call print
+  sub word [player_y], 5
+  call refresh_screen
   jmp switch_keys_done
 
 L_key_pressed:
