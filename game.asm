@@ -2,19 +2,18 @@ org 0x8000
 
 game:
   call print_hello_world
-  call enable_keyhandler
   call variable_initialization
   call activate_vga_mode
-  ;call print_hello_world
+  call enable_keyhandler
   call print_info
-  call inf_loop
 
+  call game_loop
+  ;call inf_loop
   ;call end_program
 
-print_hello_world:
-  mov si, debug_msg
-  call print
-  jmp done
+game_loop:
+  call print_player
+  jmp game_loop
 
 variable_initialization:
     mov word [CURRENT_COLOR], BASE_COLOR
@@ -29,8 +28,8 @@ variable_initialization:
 
 ; -- Mode functions
 activate_vga_mode:
-  mov ax, 0x0013
-  mov bx, 0x0105
+  mov ax, 0x13
+  mov bx, 0x105 ; clear the screen
   int 0x10
   jmp done
 

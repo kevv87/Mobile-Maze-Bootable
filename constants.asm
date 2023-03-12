@@ -8,10 +8,13 @@ pause_msg: db "Pressed pause!", 13, 10, 0
 restart_msg: db "Pressed restart!", 13, 10, 0
 game_paused_msg: db "Press L", 13, 10, 0
 
-;game_unpaused_msg: db "Game was unpaused!", 13, 10, 0
+game_unpaused_msg: db "Game was unpaused!", 13, 10, 0
 
 hexstr: db "0123456789ABCDEF"
 
+pixel_width: db 10
+
+; We should delete some things from here
 ; -- Globals
 ; Obstaculos superados
 obst_overcm             db      0x34
@@ -20,9 +23,9 @@ current_level           db      0x0
 ; Nombre del jugador
 player_name             db      0x0
 ; Desde el origin de la columna
-player_x:               dw      0x0
+player_x               dw      0x0
 ; Desde el origin de la fila
-player_y:               dw      0x0
+player_y               dw      0x0
 
 ; Desde el origin de la columna
 wall_x:               dw      0x0
@@ -30,7 +33,7 @@ wall_x:               dw      0x0
 wall_y:               dw      0x0
 CURRENT_LEVEL_MSG:      db      "Nivel:   ", 0
 CURRENT_COLOR:          db      0x0
-PLAYER_NAME:            db      "carlos"
+game_name_str:            db      "Name: Maze", 0
 ; Pantalla de 320x200x256
 ROWS                    equ     168         ; 200 - 32
 COLS                    equ     288         ; 200 - 32

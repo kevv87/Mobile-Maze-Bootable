@@ -61,8 +61,9 @@ switch_keys_done:
   jmp idone
 
 left_key_pressed:
-  mov si, left_msg
-  call print
+  ;mov si, left_msg
+  ;call print
+  dec word [player_x]
   jmp switch_keys_done
 
 right_key_pressed:
