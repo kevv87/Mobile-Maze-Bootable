@@ -1,7 +1,7 @@
 print:
   mov ah, 0x0e
 print_loop:
-  mov bl, 0x04 ; this prints on red
+  mov bl, 0x03 ; this prints on red
   lodsb ; This loads the first character of si into al
   cmp al, 0 ; when al == 0, string has finished
   je done ; if so, finish this function
@@ -90,49 +90,110 @@ print_horiz_line_y dw 0
 print_horiz_line:
   mov word [print_line_counter], 0
 print_horiz_line_loop:
-  ; print_line_start_x += print_line_counter * 5
-  mov bx, word [print_line_start_x]
-  mov ax, word [print_line_counter]
+  ; print_line_start_x = print_line_start * 5 print_line_counter * 5
   mov cl, pixel_width
+  mov ax, word [print_line_start_x]
+  mul cl
+  mov bx, ax
+  mov ax, word [print_line_counter]
   mul cl
   add bx, ax
   ; --
   mov word [print_pixel_start_x], bx
-  mov bx, word [print_horiz_line_y]
+
+  ; print_horiz_line_y *= 5
+  mov ax, word [print_horiz_line_y]
+  mul cl
+  ; ---
+  mov word [print_pixel_start_y], ax
+  
+  mov byte [print_pixel_color], 0x04 ; line color blue
+  call print_pixel
+  inc word [print_line_counter]
+
+  mov ax, word [print_line_end_x]
+  mov cl, pixel_width
+  mul cl
+  ; comparamos donde escribimos el ultimo pixel
+  ; contra print_line_end_x * 5
+  cmp word [print_pixel_start_x], ax
+  jl print_horiz_line_loop
+
+  jmp done
+
+; parameters:
+print_line_start_y dw 0
+print_line_end_y dw 0
+print_vert_line_x dw 0
+print_vert_line:
+  mov word [print_line_counter], 0
+print_vert_line_loop:
+  ; print_line_start_y = print_line_start_y * 5 + print_line_counter * 5
+  mov cl, pixel_width
+  mov ax, word [print_line_start_y]
+  mul cl
+  mov bx, ax
+  mov ax, word [print_line_counter]
+  mul cl
+  add bx, ax
+  ; --
   mov word [print_pixel_start_y], bx
+
+  ; print_horiz_line_y *= 5
+  mov ax, word [print_vert_line_x]
+  mul cl
+  ; ---
+  mov word [print_pixel_start_x], ax
+  mov byte [print_pixel_color], 0x04 ; line color blue
   call print_pixel
 
   inc word [print_line_counter]
-  mov bx, word [print_line_end_x]
-  cmp word [print_line_counter], bx
-  jle print_horiz_line_loop
+
+  mov ax, word [print_line_end_y]
+  mov cl, pixel_width
+  mul cl
+  ; comparamos donde escribimos el ultimo pixel
+  ; contra print_line_end_y * 5
+  cmp word [print_pixel_start_y], ax
+  jl print_vert_line_loop
 
   jmp done
 
 print_line_counter dw 0
 
 print_borders:
-  mov word [print_line_start_x], screen_x_start
+  mov word [print_line_start_x], screen_x_start_pixel
   mov word [print_line_end_x], screen_x_end_pixel
-  mov word [print_horiz_line_y], screen_y_start
+  mov word [print_horiz_line_y], screen_y_start_pixel
   call print_horiz_line
 
-  mov word [print_line_start_x], screen_x_start
+  mov word [print_line_start_x], screen_x_start_pixel
   mov word [print_line_end_x], screen_x_end_pixel
   mov word [print_horiz_line_y], screen_y_end_pixel
   call print_horiz_line
+
+  mov word [print_line_start_y], screen_y_start_pixel
+  mov word [print_line_end_y], screen_y_end_pixel
+  mov word [print_vert_line_x], screen_x_start_pixel
+  call print_vert_line
+
+  mov word [print_line_start_y], screen_y_start_pixel
+  mov word [print_line_end_y], screen_y_end_pixel
+  mov word [print_vert_line_x], screen_x_end_pixel
+  call print_vert_line
 
   jmp done
 
 refresh_screen:
   mov ah, 0x06 ; funci—n de borrar
   mov al, 0x00 ; borrar toda la pantalla
-  mov bh, 0x00 ; atributo de color blanco sobre negro
+  mov bh, 0x00 ; negro sobre negro
   mov ch, 0x00 ; fila inicial
   mov cl, 0x00 ; columna inicial
   mov dh, 0x18 ; fila final
   mov dl, 0x4F ; columna final
   int 0x10     ; llamar a la interrupci—n
+
   call print_info
   call print_player
   call print_borders
