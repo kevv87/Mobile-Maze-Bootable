@@ -21,6 +21,10 @@ screen_y_start_pixel equ 6
 screen_x_end_pixel equ 50
 screen_y_end_pixel equ 39
 
+exit_x equ 250
+exit_y equ 95
+exit_color equ 0x0f
+
 ; Obstaculos superados
 obst_overcm             db      0x34
 ; Nivel actual de 1 - 2

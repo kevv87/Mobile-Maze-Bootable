@@ -66,26 +66,29 @@ keyhandler:
   je R_key_pressed
   
 switch_keys_done:
+  call refresh_screen
   jmp idone
 
 left_key_pressed:
   sub word [player_x], 5
-  call refresh_screen
+  call check_collisions
+  mov al, byte [is_collision]
+  cmp al, 0x01 
+  ; TODO: Continue here
+  jne switch_keys_done
+  add word [player_x], 5
   jmp switch_keys_done
 
 right_key_pressed:
   add word [player_x], 5
-  call refresh_screen
   jmp switch_keys_done
 
 down_key_pressed:
   add word [player_y], 5
-  call refresh_screen
   jmp switch_keys_done
 
 up_key_pressed:
   sub word [player_y], 5
-  call refresh_screen
   jmp switch_keys_done
 
 L_key_pressed:

@@ -54,5 +54,6 @@ end_program:
 %include "pause.asm"
 %include "restart.asm"
 %include "screen_info.asm"
+%include "obstacles.asm"
 ; --- Data
 %include "constants.asm"

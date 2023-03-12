@@ -197,6 +197,14 @@ refresh_screen:
   call print_info
   call print_player
   call print_borders
+  call print_exit
+  jmp done
+
+print_exit:
+  mov word [print_pixel_start_x], exit_x
+  mov word [print_pixel_start_y], exit_y
+  mov byte [print_pixel_color], exit_color
+  call print_pixel
   jmp done
 
 move_video_cursor_to_0:
