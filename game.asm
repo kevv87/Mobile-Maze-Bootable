@@ -15,14 +15,11 @@ game_loop:
   jmp game_loop
 
 variable_initialization:
-    mov word [CURRENT_COLOR], BASE_COLOR
     mov byte [current_level], 0x01
     mov byte [obst_overcm], 0x0
     ; Posicion del jugador en el centro de la pantalla
     mov word [player_x], 0x0078
     mov word [player_y], 0x0050
-    mov word [wall_x], 0x00A8
-    mov word [wall_y], 0x60
     jmp done
 
 ; -- Mode functions

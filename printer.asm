@@ -66,7 +66,7 @@ print_player:
   mov word [print_pixel_start_x], bx
   mov bx, word [player_y]
   mov word [print_pixel_start_y], bx
-  mov byte [print_pixel_color], 0x02 ; player color green
+  mov byte [print_pixel_color], player_color
   call print_pixel
   jmp done
 
@@ -144,7 +144,7 @@ print_vert_line_loop:
   mul cl
   ; ---
   mov word [print_pixel_start_x], ax
-  mov byte [print_pixel_color], 0x04 ; line color blue
+  mov byte [print_pixel_color], wall_color
   call print_pixel
 
   inc word [print_line_counter]

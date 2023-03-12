@@ -1,10 +1,6 @@
 org 0x7c00
 
 boot:
-  ; Activating A20 gate
-  ;mov ax, 0x2401 
-  ;int 0x15 
-
   xor ax, ax
   mov ds, ax 
   mov ss, ax
