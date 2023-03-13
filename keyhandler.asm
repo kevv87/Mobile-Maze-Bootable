@@ -45,10 +45,15 @@ keyhandler:
 
 waiting_for_enter:
   cmp ax, 0x001c ; Enter key
+  je enter_pressed
+  jne switch_keys_done
+  
+
+enter_pressed:
   mov byte [current_level], 0x01
   jmp switch_keys_done
-  
-  on_game_key_handler:
+
+on_game_key_handler:
   ; -- Checking for presses of the L key regardless of pause status
   cmp ax, 0x0026
   je L_key_pressed
