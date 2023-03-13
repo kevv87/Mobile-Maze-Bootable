@@ -34,18 +34,27 @@ print_game_controls:
   jmp done
 
 obstacles_overcome_count:
-  mov si, obstacles_msg
+  mov al, byte [current_level]
+  cmp al, 1
+  jne obstacles_lv2
+
+  mov si, obstacles_lv1_msg
+  jmp obstacles_print
+obstacles_lv2:
+  mov si, obstacles_lv2_msg
+obstacles_print:
   call print
-  ; TODO: Imprimir el número de obstáculos
-  ; hay que hacer un conversor de numero a string
-  mov al, "0"
-  int 0x10
   jmp done
 
 level_msg:
-    ; Cargar el mensaje de nivel actual
-    mov     si, CURRENT_LEVEL_MSG
-    ; TODO: Aqui tambien, ocupamos el conversor de numero a string
+  mov al, byte [current_level]
+  cmp al, 1
+  jne level2_msg
+  mov si, level_1_msg
+  jmp level_print
+level2_msg:
+  mov si, level_2_msg
+level_print:
     call print
     jmp done
 

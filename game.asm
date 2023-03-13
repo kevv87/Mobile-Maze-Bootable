@@ -28,8 +28,8 @@ variable_initialization:
     mov byte [current_level], 0x00
     mov byte [obst_overcm], 0x0
     ; Posicion del jugador en el centro de la pantalla
-    mov word [player_x], 0x0078
-    mov word [player_y], 0x0050
+    mov word [player_x], player_start_x
+    mov word [player_y], player_start_y 
     jmp done
 
 ; -- Mode functions

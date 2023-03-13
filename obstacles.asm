@@ -1,5 +1,5 @@
 check_collisions:
-  ;call check_collision_exit
+  call check_collision_exit
   call check_collision_borders
   jmp done
 ; returns:
@@ -22,6 +22,24 @@ check_collision_borders:
   je collision_detected
   ; -- 
 
+  ; -- up border
+  mov cl, 5
+  mov ax, screen_y_start_pixel
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  je collision_detected
+  ; -- 
+
+  ; -- down border
+  mov cl, 5
+  mov ax, screen_y_end_pixel
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  je collision_detected
+  ; -- 
+
   jne no_collision_detected
 
 check_collision_exit:
@@ -31,6 +49,21 @@ check_collision_exit:
   ; and call a collision
   mov ax, word [player_x]
   cmp ax, exit_x
+  jne no_collision_detected
+  mov ax, word [player_y]
+  cmp ax, exit_y
+  jne no_collision_detected
+
+  call next_level
+
+  jmp done
+
+next_level:
+  mov al, byte [current_level]
+  cmp al, 2
+  mov byte [current_level], 2
+  mov word [player_x], player_start_x
+  mov word [player_y], player_start_y
   jmp done
 
 no_collision_detected:

@@ -71,8 +71,8 @@ switch_keys_done:
 
 left_key_pressed:
   sub word [player_x], 5
-  call check_collisions
   ; -- If is collision, restore
+  call check_collisions
   mov al, byte [is_collision]
   cmp al, 0x01 
   jne switch_keys_done
@@ -82,8 +82,8 @@ left_key_pressed:
 
 right_key_pressed:
   add word [player_x], 5
-  call check_collisions
   ; -- If is collision, restore
+  call check_collisions
   mov al, byte [is_collision]
   cmp al, 0x01 
   jne switch_keys_done
@@ -93,10 +93,24 @@ right_key_pressed:
 
 down_key_pressed:
   add word [player_y], 5
+  ; -- If is collision, restore
+  call check_collisions
+  mov al, byte [is_collision]
+  cmp al, 0x01 
+  jne switch_keys_done
+  sub word [player_y], 5
+  ; -- 
   jmp switch_keys_done
 
 up_key_pressed:
   sub word [player_y], 5
+  ; -- If is collision, restore
+  call check_collisions
+  mov al, byte [is_collision]
+  cmp al, 0x01 
+  jne switch_keys_done
+  add word [player_y], 5
+  ; -- 
   jmp switch_keys_done
 
 L_key_pressed:
