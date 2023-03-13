@@ -188,16 +188,16 @@ refresh_screen:
   mov ah, 0x06 ; funci—n de borrar
   mov al, 0x00 ; borrar toda la pantalla
   mov bh, 0x00 ; negro sobre negro
-  mov ch, 0x00 ; fila inicial
-  mov cl, 0x00 ; columna inicial
+  mov ch, 4 ; fila inicial
+  mov cl, 0 ; columna inicial
   mov dh, 0x18 ; fila final
   mov dl, 0x4F ; columna final
   int 0x10     ; llamar a la interrupci—n
 
-  call print_info
   call print_player
   call print_borders
   call print_exit
+  call print_info
   jmp done
 
 print_exit:

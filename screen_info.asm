@@ -11,6 +11,19 @@ print_info:
 
   call print_game_controls
 
+  cmp byte [current_level], 3
+  jne done
+  call print_finish_game_msg
+
+  jmp done
+
+print_finish_game_msg:
+  mov byte [col_video_cursor_to], 10
+  mov byte [row_video_cursor_to], 10
+  call move_video_cursor_col
+  call move_video_cursor_row
+  mov si, finish_game_msg
+  call print
   jmp done
 
 print_game_controls:

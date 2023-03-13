@@ -12,6 +12,7 @@ game_start_msg: db "Hi! Welcome to the game Maze, press Enter to start the game"
 move_controls_msg: db "Arrow keys to move", 0
 pause_controls_msg: db "Press L to pause", 0
 reset_controls_msg: db "Press R to reset", 0
+finish_game_msg: db "You finished the game!", 13, 10, "Press R to restart", 0
 
 hexstr: db "0123456789ABCDEF"
 

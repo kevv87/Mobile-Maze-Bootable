@@ -34,8 +34,16 @@ keyhandler:
   mov ax, [port60]
 
   ; -- When on the start screen it should only respond to space presses
-  cmp byte [current_level], 0x00
-  jg on_game_key_handler
+  cmp byte [current_level], 0
+  je waiting_for_enter
+  
+  ; -- When finishing the game, it should only respond to R
+  cmp byte [current_level], 3
+  je waiting_for_reset
+
+  jmp on_game_key_handler
+
+waiting_for_enter:
   cmp ax, 0x001c ; Enter key
   mov byte [current_level], 0x01
   jmp switch_keys_done
@@ -62,11 +70,14 @@ keyhandler:
   cmp ax, 0x004D
   je right_key_pressed
 
+waiting_for_reset:
   cmp ax, 0x0013
   je R_key_pressed
+  jne switch_keys_done
   
-switch_keys_done:
+switch_keys_done_refresh:
   call refresh_screen
+switch_keys_done:
   jmp idone
 
 left_key_pressed:
@@ -75,7 +86,7 @@ left_key_pressed:
   call check_collisions
   mov al, byte [is_collision]
   cmp al, 0x01 
-  jne switch_keys_done
+  jne switch_keys_done_refresh
   add word [player_x], 5
   ; -- 
   jmp switch_keys_done
@@ -86,7 +97,7 @@ right_key_pressed:
   call check_collisions
   mov al, byte [is_collision]
   cmp al, 0x01 
-  jne switch_keys_done
+  jne switch_keys_done_refresh
   sub word [player_x], 5
   ; -- 
   jmp switch_keys_done
@@ -97,7 +108,7 @@ down_key_pressed:
   call check_collisions
   mov al, byte [is_collision]
   cmp al, 0x01 
-  jne switch_keys_done
+  jne switch_keys_done_refresh
   sub word [player_y], 5
   ; -- 
   jmp switch_keys_done
@@ -108,7 +119,7 @@ up_key_pressed:
   call check_collisions
   mov al, byte [is_collision]
   cmp al, 0x01 
-  jne switch_keys_done
+  jne switch_keys_done_refresh
   add word [player_y], 5
   ; -- 
   jmp switch_keys_done

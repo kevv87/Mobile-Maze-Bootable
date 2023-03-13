@@ -3,8 +3,7 @@ org 0x8000
 game:
   call variable_initialization
   call enable_keyhandler
-  mov byte [current_level], 0x01
-  ;call print_welcome_msg
+  call print_welcome_msg
 
   call activate_vga_mode
   call refresh_screen
@@ -23,6 +22,7 @@ start_loop:
 
 game_loop:
   jmp game_loop
+
 
 variable_initialization:
     mov byte [current_level], 0x00

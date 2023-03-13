@@ -1,5 +1,7 @@
 check_collisions:
   call check_collision_exit
+  cmp byte [current_level], 3
+  je done
   call check_collision_borders
   jmp done
 ; returns:
@@ -59,9 +61,7 @@ check_collision_exit:
   jmp done
 
 next_level:
-  mov al, byte [current_level]
-  cmp al, 2
-  mov byte [current_level], 2
+  inc byte [current_level]
   mov word [player_x], player_start_x
   mov word [player_y], player_start_y
   jmp done
