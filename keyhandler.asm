@@ -72,15 +72,23 @@ switch_keys_done:
 left_key_pressed:
   sub word [player_x], 5
   call check_collisions
+  ; -- If is collision, restore
   mov al, byte [is_collision]
   cmp al, 0x01 
-  ; TODO: Continue here
   jne switch_keys_done
   add word [player_x], 5
+  ; -- 
   jmp switch_keys_done
 
 right_key_pressed:
   add word [player_x], 5
+  call check_collisions
+  ; -- If is collision, restore
+  mov al, byte [is_collision]
+  cmp al, 0x01 
+  jne switch_keys_done
+  sub word [player_x], 5
+  ; -- 
   jmp switch_keys_done
 
 down_key_pressed:
