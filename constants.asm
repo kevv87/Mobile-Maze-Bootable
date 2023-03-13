@@ -34,13 +34,14 @@ current_level           db      0x0
 player_x               dw      0x0
 ; Desde el origin de la fila
 player_y               dw      0x0
-player_start_x equ 0x0010
-player_start_y equ 0x0030
+player_start_x equ 0x0078
+player_start_y equ 0x0050
 
 level_1_msg:      db      "Level: 1", 0
 level_2_msg:      db      "Level: 2", 0
 obstacles_lv1_msg: db "Obstacles: 0", 0
 obstacles_lv2_msg: db "Obstacles: 3", 0
 game_name_str:            db      "Name: Maze", 0
-wall_color             equ     0x04        ; Rojo
+wall_color             equ     0x04       ; Rojo
+wall_color2            equ     0x01        ; Azul
 player_color           equ     0x02        ; Verde

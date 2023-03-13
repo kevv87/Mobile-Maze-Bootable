@@ -181,18 +181,72 @@ print_borders:
   mov word [print_line_end_y], screen_y_end_pixel
   mov word [print_vert_line_x], screen_x_end_pixel
   call print_vert_line
+  
+  ;obstacles
+  mov word [print_line_start_x], screen_x_start_pixel+20
+  mov word [print_line_end_x], screen_x_end_pixel
+  mov word [print_horiz_line_y], screen_y_start_pixel+12
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start_pixel+10
+  mov word [print_line_end_x], screen_x_end_pixel-10
+  mov word [print_horiz_line_y], screen_y_start_pixel+7
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start_pixel+10
+  mov word [print_line_end_x], screen_x_end_pixel-30
+  mov word [print_horiz_line_y], screen_y_start_pixel+3
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start_pixel
+  mov word [print_line_end_x], screen_x_end_pixel-40
+  mov word [print_horiz_line_y], screen_y_start_pixel+15
+  call print_horiz_line
+
+
+  mov word [print_line_start_x], screen_x_start_pixel+10
+  mov word [print_line_end_x], screen_x_end_pixel-30
+  mov word [print_horiz_line_y], screen_y_start_pixel+18
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start_pixel+25
+  mov word [print_line_end_x], screen_x_end_pixel
+  mov word [print_horiz_line_y], screen_y_start_pixel+23
+  call print_horiz_line
+
+
+  mov word [print_line_start_x], screen_x_start_pixel+20
+  mov word [print_line_end_x], screen_x_end_pixel-20
+  mov word [print_horiz_line_y], screen_y_start_pixel+26
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start_pixel+10
+  mov word [print_line_end_x], screen_x_end_pixel-5
+  mov word [print_horiz_line_y], screen_y_start_pixel+29
+  call print_horiz_line
+
+  mov word [print_line_start_y], screen_y_start_pixel
+  mov word [print_line_end_y], screen_y_end_pixel-30
+  mov word [print_vert_line_x], screen_x_end_pixel-10
+  call print_vert_line
+
+  mov word [print_line_start_y], screen_y_start_pixel+3
+  mov word [print_line_end_y], screen_y_end_pixel-7
+  mov word [print_vert_line_x], screen_x_end_pixel-30
+  call print_vert_line
+
 
   jmp done
 
 refresh_screen:
-  mov ah, 0x06 ; funci—n de borrar
+  mov ah, 0x06 ; funciï¿½n de borrar
   mov al, 0x00 ; borrar toda la pantalla
   mov bh, 0x00 ; negro sobre negro
   mov ch, 4 ; fila inicial
   mov cl, 0 ; columna inicial
   mov dh, 0x18 ; fila final
   mov dl, 0x4F ; columna final
-  int 0x10     ; llamar a la interrupci—n
+  int 0x10     ; llamar a la interrupciï¿½n
 
   call print_player
   call print_borders
