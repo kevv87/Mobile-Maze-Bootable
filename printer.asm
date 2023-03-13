@@ -188,15 +188,23 @@ refresh_screen:
   mov ah, 0x06 ; funci—n de borrar
   mov al, 0x00 ; borrar toda la pantalla
   mov bh, 0x00 ; negro sobre negro
-  mov ch, 0x00 ; fila inicial
-  mov cl, 0x00 ; columna inicial
+  mov ch, 4 ; fila inicial
+  mov cl, 0 ; columna inicial
   mov dh, 0x18 ; fila final
   mov dl, 0x4F ; columna final
   int 0x10     ; llamar a la interrupci—n
 
-  call print_info
   call print_player
   call print_borders
+  call print_exit
+  call print_info
+  jmp done
+
+print_exit:
+  mov word [print_pixel_start_x], exit_x
+  mov word [print_pixel_start_y], exit_y
+  mov byte [print_pixel_color], exit_color
+  call print_pixel
   jmp done
 
 move_video_cursor_to_0:
@@ -204,6 +212,24 @@ move_video_cursor_to_0:
   mov bh, 0x00 ; page number
   mov dh, 0x00 ; row
   mov dl, 0x00 ; column
+  int 0x10     ; call BIOS video service
+  jmp done
+
+; parameters:
+col_video_cursor_to db 0
+move_video_cursor_col:
+  mov ah, 0x02 ; function 2h, set cursor position
+  mov bh, 0x00 ; page number
+  mov dl, byte [col_video_cursor_to] ; column
+  int 0x10     ; call BIOS video service
+  jmp done
+
+; parameters:
+row_video_cursor_to db 0
+move_video_cursor_row:
+  mov ah, 0x02 ; function 2h, set cursor position
+  mov bh, 0x00 ; page number
+  mov dh, byte [row_video_cursor_to] ; rowumn
   int 0x10     ; call BIOS video service
   jmp done
 
