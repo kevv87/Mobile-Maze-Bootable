@@ -39,12 +39,24 @@ print_game_controls:
 obstacles_overcome_count:
   mov al, byte [current_level]
   cmp al, 1
-  jne obstacles_lv2
+  je obstacles_lv1
+  cmp al, 2
+  je obstacles_lv2
+  cmp al, 3
+  je obstacles_lvw
+  jmp obstacles_print
+
+obstacles_lv1:
   mov si, obstacles_lv1_msg
   jmp obstacles_print
 
 obstacles_lv2:
   mov si, obstacles_lv2_msg
+  jmp obstacles_print
+
+obstacles_lvw:
+  mov si, obstacles_lvw_msg
+  jmp obstacles_print
 
 obstacles_print:
   call print
