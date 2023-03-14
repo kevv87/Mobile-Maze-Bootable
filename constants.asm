@@ -11,7 +11,7 @@ game_start_msg:         db "Hi! Welcome to the game Maze: The Last Path, to play
 move_controls_msg:      db "Use ",25,26,27,24," to move",  0
 pause_controls_msg:     db "Press L to pause", 0
 reset_controls_msg:     db "Press R to reset", 0
-finish_game_msg:        db "Game Over!", 13, 10, "         Press R to restart", 0
+finish_game_msg:        db "Game Victory!", 13, 10, "         Press R to restart", 0
 
 hexstr:                 db "0123456789ABCDEF"
 
@@ -39,7 +39,8 @@ player_start_y          equ 0x0050
 level_1_msg:            db      "Level: 1", 0
 level_2_msg:            db      "Level: 2", 0
 obstacles_lv1_msg:      db "Obstacles: 0", 0
-obstacles_lv2_msg:      db "Obstacles: 3", 0
+obstacles_lv2_msg:      db "Obstacles: 9", 0
+obstacles_lvw_msg:      db "Obstacles: 20", 0
 game_name_str:          db      "Name: Maze", 0
 wall_color              equ     0x04       ; Rojo
 wall_color2             equ     0x01       ; Azul
