@@ -183,6 +183,13 @@ print_borders:
   call print_vert_line
   
   ;obstacles
+  mov al, byte [current_level]
+  cmp al, 1
+  jne obstacles_2
+  jmp obstacles_1
+
+obstacles_2:
+
   mov word [print_line_start_x], screen_x_start_pixel+20
   mov word [print_line_end_x], screen_x_end_pixel
   mov word [print_horiz_line_y], screen_y_start_pixel+12
@@ -232,6 +239,76 @@ print_borders:
 
   mov word [print_line_start_y], screen_y_start_pixel+3
   mov word [print_line_end_y], screen_y_end_pixel-7
+  mov word [print_vert_line_x], screen_x_end_pixel-30
+  call print_vert_line
+
+
+  jmp done
+
+
+obstacles_1:
+  mov word [print_line_start_x], screen_x_start_pixel+30
+  mov word [print_line_end_x], screen_x_end_pixel-3
+  mov word [print_horiz_line_y], screen_y_start_pixel+12
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start_pixel+10
+  mov word [print_line_end_x], screen_x_end_pixel-10
+  mov word [print_horiz_line_y], screen_y_start_pixel+7
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start_pixel+10
+  mov word [print_line_end_x], screen_x_end_pixel-30
+  mov word [print_horiz_line_y], screen_y_start_pixel+3
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start_pixel+10
+  mov word [print_line_end_x], screen_x_end_pixel-35
+  mov word [print_horiz_line_y], screen_y_start_pixel+12
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start_pixel+30
+  mov word [print_line_end_x], screen_x_end_pixel
+  mov word [print_horiz_line_y], screen_y_start_pixel+20
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start_pixel
+  mov word [print_line_end_x], screen_x_end_pixel-40
+  mov word [print_horiz_line_y], screen_y_start_pixel+15
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start_pixel+10
+  mov word [print_line_end_x], screen_x_end_pixel-30
+  mov word [print_horiz_line_y], screen_y_start_pixel+18
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start_pixel+30
+  mov word [print_line_end_x], screen_x_end_pixel
+  mov word [print_horiz_line_y], screen_y_start_pixel+3
+  call print_horiz_line
+
+  mov word [print_line_start_x], screen_x_start_pixel+21
+  mov word [print_line_end_x], screen_x_end_pixel-5
+  mov word [print_horiz_line_y], screen_y_start_pixel+29
+  call print_horiz_line
+
+  mov word [print_line_start_y], screen_y_start_pixel+7
+  mov word [print_line_end_y], screen_y_end_pixel-7
+  mov word [print_vert_line_x], screen_x_end_pixel-20
+  call print_vert_line
+
+  mov word [print_line_start_y], screen_y_start_pixel
+  mov word [print_line_end_y], screen_y_end_pixel-30
+  mov word [print_vert_line_x], screen_x_end_pixel-10
+  call print_vert_line
+
+  mov word [print_line_start_y], screen_y_start_pixel+10
+  mov word [print_line_end_y], screen_y_end_pixel-18
+  mov word [print_vert_line_x], screen_x_end_pixel-40
+  call print_vert_line
+
+  mov word [print_line_start_y], screen_y_start_pixel+3
+  mov word [print_line_end_y], screen_y_end_pixel-4
   mov word [print_vert_line_x], screen_x_end_pixel-30
   call print_vert_line
 
