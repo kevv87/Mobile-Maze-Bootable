@@ -188,7 +188,7 @@ print_borders:
   jne obstacles_2
   jmp obstacles_1
 
-obstacles_2:
+obstacles_1:
 
   mov word [print_line_start_x], screen_x_start_pixel+20
   mov word [print_line_end_x], screen_x_end_pixel
@@ -246,7 +246,7 @@ obstacles_2:
   jmp done
 
 
-obstacles_1:
+obstacles_2:
   mov word [print_line_start_x], screen_x_start_pixel+30
   mov word [print_line_end_x], screen_x_end_pixel-3
   mov word [print_horiz_line_y], screen_y_start_pixel+12
@@ -255,11 +255,6 @@ obstacles_1:
   mov word [print_line_start_x], screen_x_start_pixel+10
   mov word [print_line_end_x], screen_x_end_pixel-10
   mov word [print_horiz_line_y], screen_y_start_pixel+7
-  call print_horiz_line
-
-  mov word [print_line_start_x], screen_x_start_pixel+10
-  mov word [print_line_end_x], screen_x_end_pixel-30
-  mov word [print_horiz_line_y], screen_y_start_pixel+3
   call print_horiz_line
 
   mov word [print_line_start_x], screen_x_start_pixel+10
@@ -295,11 +290,6 @@ obstacles_1:
   mov word [print_line_start_y], screen_y_start_pixel+7
   mov word [print_line_end_y], screen_y_end_pixel-7
   mov word [print_vert_line_x], screen_x_end_pixel-20
-  call print_vert_line
-
-  mov word [print_line_start_y], screen_y_start_pixel
-  mov word [print_line_end_y], screen_y_end_pixel-30
-  mov word [print_vert_line_x], screen_x_end_pixel-10
   call print_vert_line
 
   mov word [print_line_start_y], screen_y_start_pixel+10
