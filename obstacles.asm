@@ -40,9 +40,216 @@ check_collision_borders:
   mov bx, word [player_y]
   cmp bx, ax
   je collision_detected
-  ; -- 
+  ; ---
 
+
+  jne check_level1
+
+
+
+check_level1:
+
+ ;check row 1
+  mov cl, 5
+  mov ax, 18
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  jne obstacle_2
+  mov cl, 5
+  mov ax, 20
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jl obstacle_2
+  mov ax, 50
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jg obstacle_2
+  jmp collision_detected
+
+obstacle_2:
+
+  mov cl, 5
+  mov ax, 13
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  jne obstacle_3
+  mov cl, 5
+  mov ax, 10
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jl obstacle_3
+  mov ax, 40
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jg obstacle_3
+  jmp collision_detected
+
+obstacle_3:
+  mov cl, 5
+  mov ax, 9
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  jne obstacle_4
+  mov cl, 5
+  mov ax, 10
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jl obstacle_4
+  mov ax, 20
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jg obstacle_4
+  jmp collision_detected
+
+
+obstacle_4:
+  mov cl, 5
+  mov ax, 21
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  jne obstacle_5
+  mov cl, 5
+  mov ax, 0
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jl obstacle_5
+  mov ax, 10
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jg obstacle_5
+  jmp collision_detected
+
+obstacle_5:
+  mov cl, 5
+  mov ax, 24
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  jne obstacle_6
+  mov cl, 5
+  mov ax, 10
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jl obstacle_6
+  mov ax, 20
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jg obstacle_6
+  jmp collision_detected
+
+obstacle_6:
+  mov cl, 5
+  mov ax, 29
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  jne obstacle_7
+  mov cl, 5
+  mov ax, 25
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jl obstacle_7
+  mov ax, 50
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jg obstacle_7
+  jmp collision_detected
+
+obstacle_7:
+  mov cl, 5
+  mov ax, 32
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  jne obstacle_8
+  mov cl, 5
+  mov ax, 20
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jl obstacle_8
+  mov ax, 30
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jg obstacle_8
+  jmp collision_detected
+
+obstacle_8:
+  mov cl, 5
+  mov ax, 35
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  jne obstacle_9
+  mov cl, 5
+  mov ax, 10
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jl obstacle_9
+  mov ax, 45
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jg obstacle_9
+  jmp collision_detected
+
+obstacle_9:
+  mov cl, 5
+  mov ax, 40
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
+  jne obstacle_10
+  mov cl, 5
+  mov ax, 6
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  jl obstacle_10
+  mov ax, 9
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  jg obstacle_10
+  jmp collision_detected
+
+obstacle_10:
+  mov cl, 5
+  mov ax, 20
+  mul cl
+  mov bx, word [player_x]
+  cmp bx, ax
   jne no_collision_detected
+  mov cl, 5
+  mov ax, 9
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  jl no_collision_detected
+  mov ax, 32
+  mul cl
+  mov bx, word [player_y]
+  cmp bx, ax
+  jg no_collision_detected
+  jmp collision_detected
 
 check_collision_exit:
   ; if the collision is with the exit,
